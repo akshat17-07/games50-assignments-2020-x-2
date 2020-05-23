@@ -41,11 +41,11 @@ end
 ]]
 function table.slice(tbl, first, last, step)
     local sliced = {}
-  
+
     for i = first or 1, last or #tbl, step or 1 do
       sliced[#sliced+1] = tbl[i]
     end
-  
+
     return sliced
 end
 
@@ -120,6 +120,25 @@ function GenerateQuadsBalls(atlas)
     for i = 0, 2 do
         quads[counter] = love.graphics.newQuad(x, y, 8, 8, atlas:getDimensions())
         x = x + 8
+        counter = counter + 1
+    end
+
+    return quads
+end
+
+--[[
+    this funtion use for sepration the powers ups.
+]]
+function GenerateQuadsPowers(atlas)
+    local x = 0
+    local y = 192
+
+    local counter = 1
+    local quads = {}
+
+    for i = 0, 9 do
+        quads[counter] = love.graphics.newQuad(x, y, 16, 16, atlas:getDimensions())
+        x = x + 16
         counter = counter + 1
     end
 
