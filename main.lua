@@ -23,6 +23,14 @@
     http://freesound.org/people/joshuaempyre/sounds/251461/
     http://www.soundcloud.com/empyreanma
 ]]
+--[[
+TODO
+	reset the hearts - done
+	change size of paddles
+	powers up for more balls
+	key and unlocking the bricks
+]]
+
 
 require 'src/Dependencies'
 
