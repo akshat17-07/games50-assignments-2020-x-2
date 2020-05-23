@@ -28,8 +28,8 @@
 	reset the hearts - done
 	change size of paddles - done
   generate the powers ups sprites - done
-  make powers up class - doing
-  render the powers ups
+  make powers up class - done
+  render the powers ups - done
 	powers up for more balls
 	key and unlocking the bricks
 ]]
@@ -105,6 +105,8 @@ function love.load()
         ['recover'] = love.audio.newSource('sounds/recover.wav'),
         ['high-score'] = love.audio.newSource('sounds/high_score.wav'),
         ['pause'] = love.audio.newSource('sounds/pause.wav'),
+        ['powerup'] = love.audio.newSource('sounds/powertaken.wav'),
+        ['powerdown'] = love.audio.newSource('sounds/powerlost.wav'),
 
         ['music'] = love.audio.newSource('sounds/music.wav')
     }

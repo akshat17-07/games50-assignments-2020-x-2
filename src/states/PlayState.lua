@@ -28,15 +28,43 @@ function PlayState:enter(params)
     self.highScores = params.highScores
     self.ball = params.ball
     self.level = params.level
+    self.powers = {}
 
     self.recoverPoints = params.recoverPoints
 
     -- give ball random starting velocity
     self.ball.dx = math.random(-200, 200)
     self.ball.dy = math.random(-50, -60)
+
+    self.powerTimer = math.random(2,10)
+    self.powerCounter = 0
 end
 
 function PlayState:update(dt)
+
+    self.powerCounter = self.powerCounter + dt
+    --creating the power up every 5 dt
+    if self.powerTimer < self.powerCounter then
+      self.powerTimer = math.random (2,10)
+      self.powerCounter = 0
+      temp = Powers()
+      table.insert(self.powers, temp)
+    end
+
+    -- updating and deleting powers ups
+    for k, power in pairs(self.powers) do
+      power:update()
+
+      if power:collides(self.paddle) == true then
+        table.remove(self.powers, k)
+        gSounds['powerup']:play()
+
+      elseif power.y > self.paddle.y + 10 then
+        table.remove(self.powers, k)
+        gSounds['powerdown']:play()
+      end
+    end
+
     if self.paused then
         if love.keyboard.wasPressed('space') then
             self.paused = false
@@ -214,6 +242,10 @@ function PlayState:render()
     -- render all particle systems
     for k, brick in pairs(self.bricks) do
         brick:renderParticles()
+    end
+
+    for k, power in pairs(self.powers) do
+      power:render()
     end
 
     self.paddle:render()
