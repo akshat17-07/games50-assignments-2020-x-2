@@ -24,9 +24,12 @@
     http://www.soundcloud.com/empyreanma
 ]]
 --[[
-TODO
+  TODO
 	reset the hearts - done
 	change size of paddles - done
+  generate the powers ups sprites - done
+  make powers up class - doing
+  render the powers ups
 	powers up for more balls
 	key and unlocking the bricks
 ]]
@@ -217,7 +220,6 @@ function love.draw()
 
     -- display FPS for debugging; simply comment out to remove
     displayFPS()
-    
     push:apply('end')
 end
 
