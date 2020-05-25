@@ -28,6 +28,7 @@ function Ball:init(skin)
     -- this will effectively be the color of our ball, and we will index
     -- our table of Quads relating to the global block texture using this
     self.skin = skin
+    self.inPlay = true
 end
 
 --[[
@@ -45,7 +46,7 @@ function Ball:collides(target)
     -- edge of the other
     if self.y > target.y + target.height or target.y > self.y + self.height then
         return false
-    end 
+    end
 
     -- if the above aren't true, they're overlapping
     return true

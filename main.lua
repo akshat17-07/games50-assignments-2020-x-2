@@ -30,7 +30,7 @@
   generate the powers ups sprites - done
   make powers up class - done
   render the powers ups - done
-	powers up for more balls
+	powers up for more balls - done
 	key and unlocking the bricks
 ]]
 
