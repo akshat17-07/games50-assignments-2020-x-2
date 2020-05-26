@@ -1,10 +1,13 @@
 Powers = Class{}
 
-function Powers:init()
+function Powers:init(keyRequired)
 
-  -- the 6 is ball skin and 9 is key skin
-  self.skin = (math.random(1, 2)) == 1 and 10 or 7
-
+  if keyRequired then
+    -- the 6 is ball skin and 9 is key skin
+    self.skin = (math.random(1, 2)) == 1 and 10 or 7
+ else
+   self.skin = 7
+ end
   -- setting random x
   self.x = math.random(0, VIRTUAL_WIDTH-100)
 

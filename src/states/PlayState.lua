@@ -29,7 +29,7 @@ function PlayState:enter(params)
     self.ball = {params.ball}
     self.level = params.level
     self.powers = {}
-
+    self.generateKeyPower = params.generateKeyPower
     self.recoverPoints = params.recoverPoints
 
     -- give ball random starting velocity
@@ -49,7 +49,7 @@ function PlayState:update(dt)
     if self.powerTimer < self.powerCounter then
       self.powerTimer = math.random (2,10)
       self.powerCounter = 0
-      temp = Powers()
+      temp = Powers(self.generateKeyPower)
       table.insert(self.powers, temp)
     end
 
@@ -58,14 +58,9 @@ function PlayState:update(dt)
       power:update()
 
       if power:collides(self.paddle) == true then
+          self:getPowerUp(power.skin)
           table.remove(self.powers, k)
           gSounds['powerup']:play()
-          b = Ball(math.random(7))
-          b.x = self.paddle.x + self.paddle.width / 2
-          b.y = self.paddle.y
-          b.dx = math.random(-200, 200)
-          b.dy = math.random(-50, -60)
-          table.insert(self.ball,b)
 
       elseif power.y > self.paddle.y + 10 then
           table.remove(self.powers, k)
@@ -124,13 +119,13 @@ function PlayState:update(dt)
 
           -- only check collision if we're in play
               if brick.inPlay and ball:collides(brick) then
-
                   -- add to score
+                  if not brick.lock then
                   self.score = self.score + (brick.tier * 200 + brick.color * 25)
 
                   -- trigger the brick's hit function, which removes it from play
                   brick:hit()
-
+               end
                   -- if we have enough points, recover a point of health
                   if self.score > self.recoverPoints then
                       -- can't go above 3 health
@@ -151,7 +146,7 @@ function PlayState:update(dt)
 
                       --reset the paddle sizes
                       self.paddle:sizeReset()
-
+                      self.generateKeyPower = true
                       gStateMachine:change('victory', {
                           level = self.level,
                           paddle = self.paddle,
@@ -159,7 +154,8 @@ function PlayState:update(dt)
                           score = self.score,
                           highScores = self.highScores,
                           ball = Ball(),
-                          recoverPoints = self.recoverPoints
+                          recoverPoints = self.recoverPoints,
+                          generateKeyPower = self.generateKeyPower
                       })
                     end
 
@@ -271,7 +267,8 @@ function PlayState:update(dt)
                     score = self.score,
                     highScores = self.highScores,
                     level = self.level,
-                    recoverPoints = self.recoverPoints
+                    recoverPoints = self.recoverPoints,
+                    generateKeyPower = self.generateKeyPower
                   })
               end
 
@@ -329,6 +326,22 @@ function PlayState:checkVictory()
 
     return true
 end
-
+function PlayState:getPowerUp(skin)
+  if skin == 7 then
+    b = Ball(math.random(7))
+    b.x = self.paddle.x + self.paddle.width / 2
+    b.y = self.paddle.y
+    b.dx = math.random(-200, 200)
+    b.dy = math.random(-50, -60)
+    table.insert(self.ball,b)
+  else
+    for k, brick in pairs(self.bricks) do
+      if brick.lock then
+        brick.lock = false
+        self.generateKeyPower = false
+      end
+    end
+  end
+end
 
 end
