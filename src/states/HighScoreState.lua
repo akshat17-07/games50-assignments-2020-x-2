@@ -9,6 +9,28 @@
 
     Represents the screen where we can view all high scores previously recorded.
 ]]
+--[[
+  TODO / My approch
+  I had writen all steps I had taken for solving this assignment
+	DEBUG THE RECOVER POINTS MISHAP
+	CHANGE SIZE OF PADDLES
+      decrease the paddle size - done
+      increase paddle size - done
+IMPLIMENT THE DIFFERENT POWERUP DOING DOWN - DONE
+        generate the powers ups sprites - done
+        make powers up class - done
+        render the powers ups - done
+	BALL POWER UPS - DONE
+      impliment the inPlay function in ball class - done
+      change Ball() to {Ball()} in play state - done
+      produce more balls - done
+      debug the health error - done
+	KEY AND UNLOCKING THE BRICK
+      take out the lock brick sprite - done
+      implement the function for lock brick in brick class - done
+      produce at least and at most one lock bricks - doing
+      produce power up to unlock the brick
+]]
 
 HighScoreState = Class{__includes = BaseState}
 
@@ -20,7 +42,7 @@ function HighScoreState:update(dt)
     -- return to the start screen if we press escape
     if love.keyboard.wasPressed('escape') then
         gSounds['wall-hit']:play()
-        
+
         gStateMachine:change('start', {
             highScores = self.highScores
         })
@@ -39,13 +61,13 @@ function HighScoreState:render()
         local score = self.highScores[i].score or '---'
 
         -- score number (1-10)
-        love.graphics.printf(tostring(i) .. '.', VIRTUAL_WIDTH / 4, 
+        love.graphics.printf(tostring(i) .. '.', VIRTUAL_WIDTH / 4,
             60 + i * 13, 50, 'left')
 
         -- score name
-        love.graphics.printf(name, VIRTUAL_WIDTH / 4 + 38, 
+        love.graphics.printf(name, VIRTUAL_WIDTH / 4 + 38,
             60 + i * 13, 50, 'right')
-        
+
         -- score itself
         love.graphics.printf(tostring(score), VIRTUAL_WIDTH / 2,
             60 + i * 13, 100, 'right')

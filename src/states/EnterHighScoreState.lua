@@ -9,7 +9,28 @@
 
     Screen that allows us to input a new high score in the form of three characters, arcade-style.
 ]]
-
+--[[
+  TODO / My approch
+  I had writen all steps I had taken for solving this assignment
+	DEBUG THE RECOVER POINTS MISHAP
+	CHANGE SIZE OF PADDLES
+      decrease the paddle size - done
+      increase paddle size - done
+IMPLIMENT THE DIFFERENT POWERUP DOING DOWN - DONE
+        generate the powers ups sprites - done
+        make powers up class - done
+        render the powers ups - done
+	BALL POWER UPS - DONE
+      impliment the inPlay function in ball class - done
+      change Ball() to {Ball()} in play state - done
+      produce more balls - done
+      debug the health error - done
+	KEY AND UNLOCKING THE BRICK
+      take out the lock brick sprite - done
+      implement the function for lock brick in brick class - done
+      produce at least and at most one lock bricks - doing
+      produce power up to unlock the brick
+]]
 EnterHighScoreState = Class{__includes = BaseState}
 
 -- individual chars of our string
@@ -88,7 +109,7 @@ function EnterHighScoreState:render()
         VIRTUAL_WIDTH, 'center')
 
     love.graphics.setFont(gFonts['large'])
-    
+
     --
     -- render all three characters of the name
     --
@@ -109,7 +130,7 @@ function EnterHighScoreState:render()
     end
     love.graphics.print(string.char(chars[3]), VIRTUAL_WIDTH / 2 + 20, VIRTUAL_HEIGHT / 2)
     love.graphics.setColor(255, 255, 255, 255)
-    
+
     love.graphics.setFont(gFonts['small'])
     love.graphics.printf('Press Enter to confirm!', 0, VIRTUAL_HEIGHT - 18,
         VIRTUAL_WIDTH, 'center')
